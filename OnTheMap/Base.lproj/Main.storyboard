@@ -76,11 +76,66 @@
                     <connections>
                         <outlet property="textEmail" destination="LiR-YS-5z1" id="eNO-4G-0sV"/>
                         <outlet property="textPassword" destination="iOn-SI-6N1" id="SUU-5N-2zg"/>
+                        <segue destination="h3F-Nr-9Nf" kind="show" identifier="initialSegue" id="4eg-b6-uGK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="136.80000000000001" y="133.5832083958021"/>
         </scene>
+        <!--Table View Controller-->
+        <scene sceneID="Vo3-zB-n78">
+            <objects>
+                <viewController id="0fl-bT-x2P" customClass="TableViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="yMG-pv-R6C">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="hlM-Sf-5ua"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="" image="list" selectedImage="list" id="Ng6-fD-iEj"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Dj5-H1-Fzq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2678" y="510"/>
+        </scene>
+        <!--Map View Controller-->
+        <scene sceneID="9dh-eR-X67">
+            <objects>
+                <viewController id="BGM-Q8-xkH" customClass="MapViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SYr-SH-JP7">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Yn2-VH-EM9"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" image="marker" selectedImage="marker" id="bUd-V9-JMi"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iaO-TM-auU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2678" y="-162"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="3DU-FE-TNv">
+            <objects>
+                <tabBarController id="h3F-Nr-9Nf" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="VX4-gt-kRY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="BGM-Q8-xkH" kind="relationship" relationship="viewControllers" id="ZpL-KX-bih"/>
+                        <segue destination="0fl-bT-x2P" kind="relationship" relationship="viewControllers" id="PrU-7r-E9A"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ggt-em-zgB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1231" y="134"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="list" width="30" height="30"/>
+        <image name="marker" width="30" height="30"/>
+    </resources>
 </document>

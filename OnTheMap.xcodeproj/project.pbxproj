@@ -12,6 +12,8 @@
 		25E78F07221ACF3F0023F9C4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25E78F05221ACF3F0023F9C4 /* Main.storyboard */; };
 		25E78F09221ACF410023F9C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25E78F08221ACF410023F9C4 /* Assets.xcassets */; };
 		25E78F0C221ACF410023F9C4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25E78F0A221ACF410023F9C4 /* LaunchScreen.storyboard */; };
+		87CB281F2221AB7F00807829 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CB281E2221AB7F00807829 /* MapViewController.swift */; };
+		87CB28212221ABA800807829 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CB28202221ABA800807829 /* TableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		25E78F08221ACF410023F9C4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		25E78F0B221ACF410023F9C4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		25E78F0D221ACF410023F9C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		87CB281E2221AB7F00807829 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		87CB28202221ABA800807829 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +64,8 @@
 				25E78F08221ACF410023F9C4 /* Assets.xcassets */,
 				25E78F0A221ACF410023F9C4 /* LaunchScreen.storyboard */,
 				25E78F0D221ACF410023F9C4 /* Info.plist */,
+				87CB281E2221AB7F00807829 /* MapViewController.swift */,
+				87CB28202221ABA800807829 /* TableViewController.swift */,
 			);
 			path = OnTheMap;
 			sourceTree = "<group>";
@@ -136,7 +142,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				25E78F04221ACF3F0023F9C4 /* LoginViewController.swift in Sources */,
+				87CB281F2221AB7F00807829 /* MapViewController.swift in Sources */,
 				25E78F02221ACF3F0023F9C4 /* AppDelegate.swift in Sources */,
+				87CB28212221ABA800807829 /* TableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
