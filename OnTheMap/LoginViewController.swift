@@ -30,16 +30,12 @@ class LoginViewController: UIViewController {
         let password = textPassword?.text ?? ""
         
         if email.trimmingCharacters(in: .whitespaces).isEmpty {
-            let alert = UIAlertController(title: "Warning", message: "You must enter an email!", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(alert, animated: true)
+            self.presentAlert(withTitle: "Warning", message: "You must enter an email!")
             return
         }
         
         if password.trimmingCharacters(in: .whitespaces).isEmpty {
-            let alert = UIAlertController(title: "Warning", message: "You must enter a password!", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(alert, animated: true)
+            self.presentAlert(withTitle: "Warning", message: "You must enter a password!")
             return
         }
 
@@ -54,26 +50,23 @@ class LoginViewController: UIViewController {
         request.httpBody = "{\"udacity\": {\"username\": \"\(email)\", \"password\": \"\(password)\"}}".data(using: .utf8)
         
         let session = URLSession.shared
+        
         let task = session.dataTask(with: request) { data, response, error in
+            
             if error != nil {
                 DispatchQueue.main.async(execute: {
-                    let alert = UIAlertController(title: "Error", message: "There was a problema with your connection! Please check it!", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                    self.present(alert, animated: true)
-                    
-                    return
+                    self.presentAlert(withTitle: "Error", message: "There was a problema with your connection! Please check it!")
                 })
+                return
             }
             
             if let httpResponse = response as? HTTPURLResponse {
                 if (httpResponse.statusCode != 200) {
                     
                     DispatchQueue.main.async(execute: {
-                        let alert = UIAlertController(title: "Warning", message: "Wrong credentials!", preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                        self.present(alert, animated: true)
-                        return
+                        self.presentAlert(withTitle: "Warning", message: "Wrong credentials! Please check your email or password!")
                     })
+                    return
                 }
             }
 
@@ -82,9 +75,24 @@ class LoginViewController: UIViewController {
             let newData = data?.subdata(in: range) /* subset response data! */
             
             print(String(data: newData!, encoding: .utf8)!)
+            
+            DispatchQueue.main.async(execute: {
+                self.presentAlert(withTitle: "Success", message: "Successfully logged in")
+            })
         }
         task.resume()
+        
     }
-    
 }
 
+extension UIViewController {
+    
+    func presentAlert(withTitle title: String, message : String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let OKAction = UIAlertAction(title: "OK", style: .default) { action in
+            print("You've pressed OK Button")
+        }
+        alertController.addAction(OKAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+}
