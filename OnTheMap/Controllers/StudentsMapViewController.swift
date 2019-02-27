@@ -1,5 +1,5 @@
 //
-//  TableViewController.swift
+//  MapViewController.swift
 //  OnTheMap
 //
 //  Created by José Naves Moura Neto on 23/02/19.
@@ -8,5 +8,5 @@
 
 import UIKit
 
-class TableViewController: UIViewController {
+class StudentsMapViewController: UIViewController {
 }
