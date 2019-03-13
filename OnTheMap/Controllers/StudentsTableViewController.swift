@@ -19,9 +19,11 @@ class StudentsTableViewController: UITableViewController {
         APIClient.sharedInstance().getStudents { (students, errorString) in
             performUIUpdatesOnMain {
                 if let students = students {
-                    print(students)
                     //  put it all on the tableview
                     self.fetchedStudents.append(contentsOf: students)
+                    
+                    // sort students by updatedAt
+                    self.fetchedStudents = self.fetchedStudents.sorted(by: { $0.updatedAt > $1.updatedAt })
                     self.tableView?.reloadData()
 
                 } else {
