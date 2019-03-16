@@ -111,6 +111,9 @@
                             <barButtonItem systemItem="refresh" id="32K-pL-hVe"/>
                         </rightBarButtonItems>
                     </navigationItem>
+                    <connections>
+                        <outlet property="mapView" destination="yin-4v-Wk5" id="wLk-DC-NhW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iaO-TM-auU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

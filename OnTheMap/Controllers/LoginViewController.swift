@@ -73,9 +73,7 @@ class LoginViewController: UIViewController {
             
             let range = 5..<data!.count
             let newData = data?.subdata(in: range) /* subset response data! */
-            
-            print(String(data: newData!, encoding: .utf8)!)
-            
+                        
             DispatchQueue.main.async(execute: {
                 self.presentAlert(withTitle: "Success", message: "Successfully logged in", completion: {
                     self.performSegue(withIdentifier: "initialSegue", sender: nil)
@@ -84,21 +82,5 @@ class LoginViewController: UIViewController {
         }
         task.resume()
         
-    }
-}
-
-extension UIViewController {
-    
-    func presentAlert(withTitle title: String, message : String, completion: (() -> Void)? = nil) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let OKAction = UIAlertAction(title: "OK", style: .default) { action in
-            if let completion = completion {
-                completion()
-            } else {
-                print("OK clicked")
-            }
-        }
-        alertController.addAction(OKAction)
-        self.present(alertController, animated: true, completion: nil)
     }
 }
