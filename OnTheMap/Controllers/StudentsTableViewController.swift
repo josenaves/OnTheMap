@@ -25,6 +25,10 @@ class StudentsTableViewController: UITableViewController {
     
     // MARK: - Table view data source
     
+    @IBAction func logout(_ sender: Any) {
+        doLogout()
+    }
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
