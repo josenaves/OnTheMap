@@ -41,6 +41,17 @@ extension UIViewController {
         }
     }
     
+    func doLogout() {
+        logout { error in
+            let message = error == nil ? "Successfully logged out" : "Error logging out"
+            self.presentAlert(withTitle: "Success", message: message, completion: { self.dismiss(animated: true) })
+        }
+    }
+    
+    private func logout(_ callback: @escaping ((_ error: Error?) -> Void)) {
+        APIClient.sharedInstance().logout(callback)
+    }
+    
     func presentAlert(withTitle title: String, message : String, completion: (() -> Void)? = nil) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let OKAction = UIAlertAction(title: "OK", style: .default) { action in

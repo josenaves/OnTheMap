@@ -13,9 +13,11 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var textEmail: UITextField?
     @IBOutlet weak var textPassword: UITextField?
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // clear fields (logout)
+        textEmail?.text = ""
+        textPassword?.text = ""
     }
 
     @IBAction func navigateToSignup(sender: UIButton) {
@@ -70,10 +72,9 @@ class LoginViewController: UIViewController {
                 }
             }
 
+//            let range = 5..<data!.count
+//            let newData = data?.subdata(in: range) /* subset response data! */
             
-            let range = 5..<data!.count
-            let newData = data?.subdata(in: range) /* subset response data! */
-                        
             DispatchQueue.main.async(execute: {
                 self.presentAlert(withTitle: "Success", message: "Successfully logged in", completion: {
                     self.performSegue(withIdentifier: "initialSegue", sender: nil)
