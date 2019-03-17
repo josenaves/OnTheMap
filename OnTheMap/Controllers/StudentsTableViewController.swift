@@ -39,4 +39,9 @@ class StudentsTableViewController: UITableViewController {
 
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let currentStudent = fetchedStudents[indexPath.row]
+        UIApplication.shared.openDefaultBrowser(accessingAddress: currentStudent.mediaUrl)
+    }
 }
