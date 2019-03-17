@@ -10,28 +10,12 @@ import UIKit
 
 class StudentsTableViewController: UITableViewController {
     
-    var fetchedStudents = [StudentInformation]()
-    
     override func viewDidLoad() {
-        
         tableView.rowHeight = 88
-
-        APIClient.sharedInstance().getStudents { (students, errorString) in
-            performUIUpdatesOnMain {
-                if let students = students {
-                    //  put it all on the tableview
-                    self.fetchedStudents.append(contentsOf: students)
-                    
-                    // sort students by updatedAt
-                    self.fetchedStudents = self.fetchedStudents.sorted(by: { $0.updatedAt > $1.updatedAt })
-                    self.tableView?.reloadData()
-
-                } else {
-                    print(errorString as Any)
-                    
-                    // TODO display an error to the user
-                }
-            }
+        if fetchedStudents.count == 0 {
+            getStudents { self.tableView?.reloadData() }
+        } else {
+            self.tableView?.reloadData()
         }
     }
     
@@ -49,20 +33,15 @@ class StudentsTableViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "StudentDetailsCell", for: indexPath) as! StudentCell
         let student = fetchedStudents[indexPath.row]
-        print(student)
         
-        if let firstName = student.firstName, let lastName = student.lastName {
-            cell.nameLabel?.text = "\(lastName), \(firstName)"
-        } else {
-            cell.nameLabel?.text = "Unknown student"
-        }
-        
-        if let url = student.mediaUrl {
-            cell.urlLabel?.text = url
-        } else {
-            cell.urlLabel?.text = "-"
-        }
-        
+        cell.nameLabel?.text = "\(student.lastName), \(student.firstName)"
+        cell.urlLabel?.text = student.mediaUrl
+
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let currentStudent = fetchedStudents[indexPath.row]
+        UIApplication.shared.openDefaultBrowser(accessingAddress: currentStudent.mediaUrl)
     }
 }

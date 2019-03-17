@@ -12,8 +12,9 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-
+    
+    private static var _fetchedStudents = [StudentInformation]()
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         return true
@@ -40,7 +41,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
 }
 
+extension UIApplication {
+    
+    // MARK: Imperatives
+    func openDefaultBrowser(accessingAddress addressText: String) {
+        var addressText = addressText
+        
+        // If the address text is not a valid address, embed it in a google search.
+        let componentsSplitted = addressText.split(separator: ".")
+        if componentsSplitted.count == 1 {
+            addressText = "https://www.google.com/search?q=\(componentsSplitted.first!)"
+        }
+        
+        guard var addressURL = URL(string: addressText),
+            var components = URLComponents(url: addressURL, resolvingAgainstBaseURL: true) else {
+                assertionFailure("Couldn't mount the url.")
+                return
+        }
+        
+        if components.scheme == nil {
+            components.scheme = "https"
+            addressURL = components.url!
+        }
+        
+        if UIApplication.shared.canOpenURL(addressURL) {
+            UIApplication.shared.open(addressURL, options: [:], completionHandler: nil)
+        }
+    }
+}
