@@ -19,6 +19,10 @@ class StudentsTableViewController: UITableViewController {
         }
     }
     
+    @IBAction func refreshData(_ sender: Any) {
+        getStudents { self.tableView?.reloadData() }
+    }
+    
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {

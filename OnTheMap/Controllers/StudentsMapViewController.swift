@@ -30,6 +30,10 @@ class StudentsMapViewController: UIViewController {
         }
     }
     
+    @IBAction func refreshData(_ sender: Any) {
+        getStudents { self.displayStudentLocations() }
+    }
+    
     func displayStudentLocations() {
         mapView.removeAnnotations(mapView.annotations)
         
