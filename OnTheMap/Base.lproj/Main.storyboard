@@ -108,7 +108,11 @@
                         <barButtonItem key="leftBarButtonItem" title="LOGOUT" id="uDh-aF-HjF"/>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="add" id="WZo-wk-GHq"/>
-                            <barButtonItem systemItem="refresh" id="32K-pL-hVe"/>
+                            <barButtonItem systemItem="refresh" id="32K-pL-hVe">
+                                <connections>
+                                    <action selector="refreshData:" destination="BGM-Q8-xkH" id="Gmq-a9-lvY"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
@@ -181,7 +185,11 @@
                         <barButtonItem key="leftBarButtonItem" title="LOGOUT" id="YmC-Dr-eE3"/>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="add" id="2gv-6f-PlY"/>
-                            <barButtonItem systemItem="refresh" id="OsQ-5Z-B0r"/>
+                            <barButtonItem systemItem="refresh" id="OsQ-5Z-B0r">
+                                <connections>
+                                    <action selector="refreshData:" destination="PaA-8v-RQI" id="39i-t1-Mdl"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                 </tableViewController>

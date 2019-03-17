@@ -23,7 +23,8 @@ extension UIViewController {
         APIClient.sharedInstance().getStudents { (students, errorString) in
             performUIUpdatesOnMain {
                 if let students = students {
-                    //  put it all on the tableview
+                    
+                    Model.shared.students.removeAll()
                     Model.shared.students.append(contentsOf: students)
                     
                     // sort students by updatedAt
