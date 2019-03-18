@@ -77,7 +77,7 @@ class LoginViewController: UIViewController {
             
             DispatchQueue.main.async(execute: {
                 self.presentAlert(withTitle: "Success", message: "Successfully logged in", completion: {
-                    self.performSegue(withIdentifier: "initialSegue", sender: nil)
+                    self.performSegue(withIdentifier: "initialSegue", sender: self)
                 })
             })
         }

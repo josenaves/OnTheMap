@@ -11,7 +11,6 @@ import UIKit
 class StudentsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
-        tableView.rowHeight = 88
         if fetchedStudents.count == 0 {
             getStudents { self.tableView?.reloadData() }
         } else {
@@ -19,16 +18,7 @@ class StudentsTableViewController: UITableViewController {
         }
     }
     
-    @IBAction func refreshData(_ sender: Any) {
-        getStudents { self.tableView?.reloadData() }
-    }
-    
     // MARK: - Table view data source
-    
-    @IBAction func logout(_ sender: Any) {
-        doLogout()
-    }
-    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -39,11 +29,11 @@ class StudentsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "StudentDetailsCell", for: indexPath) as! StudentCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "StudentDetailsCell", for: indexPath)
         let student = fetchedStudents[indexPath.row]
         
-        cell.nameLabel?.text = "\(student.lastName), \(student.firstName)"
-        cell.urlLabel?.text = student.mediaUrl
+        cell.textLabel?.text = "\(student.lastName), \(student.firstName)"
+        cell.detailTextLabel?.text = student.mediaUrl
 
         return cell
     }
