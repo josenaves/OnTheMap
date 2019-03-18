@@ -133,7 +133,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ms4-Y7-FcL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3046" y="-961"/>
+            <point key="canvasLocation" x="1503" y="217"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="FHx-fx-1ie">
@@ -165,7 +165,11 @@
                             </connections>
                         </barButtonItem>
                         <rightBarButtonItems>
-                            <barButtonItem systemItem="add" id="mBN-q7-kWa"/>
+                            <barButtonItem systemItem="add" id="mBN-q7-kWa">
+                                <connections>
+                                    <segue destination="1wW-Aa-HpV" kind="show" id="bsG-z9-LoP"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem systemItem="refresh" id="ANb-vq-tYD">
                                 <connections>
                                     <action selector="refreshData:" destination="R1o-cf-RuE" id="Tfq-WJ-1xN"/>
@@ -174,6 +178,7 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="R4v-N7-dmR">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
@@ -185,6 +190,127 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mWU-UT-8Fx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1980" y="-626"/>
+        </scene>
+        <!--Add Location-->
+        <scene sceneID="4KS-OC-Zab">
+            <objects>
+                <viewController title="Add Location" id="1wW-Aa-HpV" customClass="AddLocationViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="WBV-Oo-kun">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="43" translatesAutoresizingMaskIntoConstraints="NO" id="ODt-OF-5l2">
+                                <rect key="frame" x="27.5" y="84" width="320" height="329"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="marker" translatesAutoresizingMaskIntoConstraints="NO" id="2nr-kw-wMx">
+                                        <rect key="frame" x="110" y="0.0" width="100" height="100"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="100" id="06k-ME-WTZ"/>
+                                            <constraint firstAttribute="width" constant="100" id="A08-dB-NZa"/>
+                                            <constraint firstAttribute="width" secondItem="2nr-kw-wMx" secondAttribute="height" multiplier="1:1" id="fwn-Eu-L3B"/>
+                                        </constraints>
+                                    </imageView>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Location" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eed-4y-tYC">
+                                        <rect key="frame" x="0.0" y="143" width="320" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="320" id="JYJ-H6-QKL"/>
+                                        </constraints>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Link" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iWn-gq-dSu">
+                                        <rect key="frame" x="0.0" y="216" width="320" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="320" id="imU-Eh-kbb"/>
+                                        </constraints>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e4R-vP-rf1">
+                                        <rect key="frame" x="0.0" y="289" width="320" height="40"/>
+                                        <color key="backgroundColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="O1z-Er-hLC"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="320" id="RoB-5B-Q0R"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Find Location">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="IVB-VS-Pnu">
+                                <rect key="frame" x="169" y="458" width="37" height="37"/>
+                                <color key="color" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="IVB-VS-Pnu" firstAttribute="top" secondItem="ODt-OF-5l2" secondAttribute="bottom" constant="45" id="Dne-hf-nOV"/>
+                            <constraint firstItem="IVB-VS-Pnu" firstAttribute="centerX" secondItem="WBV-Oo-kun" secondAttribute="centerX" id="WFf-Yv-P3R"/>
+                            <constraint firstItem="ODt-OF-5l2" firstAttribute="centerX" secondItem="WBV-Oo-kun" secondAttribute="centerX" id="Xdc-GQ-BIG"/>
+                            <constraint firstItem="ODt-OF-5l2" firstAttribute="top" secondItem="Sgk-XW-994" secondAttribute="top" constant="20" id="aMt-X4-j0p"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Sgk-XW-994"/>
+                    </view>
+                    <connections>
+                        <outlet property="activityIndicator" destination="IVB-VS-Pnu" id="vUC-1f-s3i"/>
+                        <outlet property="linkTextField" destination="iWn-gq-dSu" id="05P-yQ-deS"/>
+                        <outlet property="locationButton" destination="e4R-vP-rf1" id="ZR0-lS-2Nt"/>
+                        <outlet property="locationTextField" destination="eed-4y-tYC" id="2jo-S9-05D"/>
+                        <segue destination="51b-Fi-8C8" kind="show" id="Wxd-cb-SQV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fUG-sX-TxD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3072.8000000000002" y="-627.4362818590705"/>
+        </scene>
+        <!--Add Location-->
+        <scene sceneID="IOB-lA-Nms">
+            <objects>
+                <viewController title="Add Location" id="51b-Fi-8C8" customClass="LocationDetailViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wJ3-Vf-wni">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="kAt-z0-vcW">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TGf-nv-CCW">
+                                <rect key="frame" x="87.5" y="617" width="200" height="30"/>
+                                <color key="backgroundColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="QYc-NO-whs"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="RZZ-Ee-A6z"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Finish">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="kAt-z0-vcW" firstAttribute="bottom" secondItem="hjk-Nm-oZX" secondAttribute="bottom" id="04n-Vz-yeb"/>
+                            <constraint firstItem="TGf-nv-CCW" firstAttribute="centerX" secondItem="wJ3-Vf-wni" secondAttribute="centerX" id="5mn-Pi-bNp"/>
+                            <constraint firstItem="kAt-z0-vcW" firstAttribute="leading" secondItem="hjk-Nm-oZX" secondAttribute="leading" id="UNz-04-4vX"/>
+                            <constraint firstItem="kAt-z0-vcW" firstAttribute="trailing" secondItem="hjk-Nm-oZX" secondAttribute="trailing" id="bFI-iv-ucP"/>
+                            <constraint firstAttribute="bottom" secondItem="TGf-nv-CCW" secondAttribute="bottom" constant="20" symbolic="YES" id="e2N-i5-FIt"/>
+                            <constraint firstItem="kAt-z0-vcW" firstAttribute="top" secondItem="hjk-Nm-oZX" secondAttribute="top" id="kis-Kl-G2c"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="hjk-Nm-oZX"/>
+                    </view>
+                    <connections>
+                        <outlet property="buttonFinish" destination="TGf-nv-CCW" id="vj3-OZ-7ti"/>
+                        <outlet property="mapView" destination="kAt-z0-vcW" id="QSt-5p-7EN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="c2Z-G3-J1Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4008.8000000000002" y="-627.4362818590705"/>
         </scene>
         <!--Students Map View Controller-->
         <scene sceneID="W5a-1J-Cet">
@@ -214,7 +340,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2L5-Ct-cNx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3046" y="-296"/>
+            <point key="canvasLocation" x="2455" y="216"/>
         </scene>
     </scenes>
     <resources>
