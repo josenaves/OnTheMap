@@ -29,15 +29,7 @@ class StudentsMapViewController: UIViewController {
             self.displayStudentLocations()
         }
     }
-    
-    @IBAction func refreshData(_ sender: Any) {
-        getStudents { self.displayStudentLocations() }
-    }
-    
-    @IBAction func logout(_ sender: Any) {
-        doLogout()
-    }
-    
+        
     func displayStudentLocations() {
         mapView.removeAnnotations(mapView.annotations)
         
