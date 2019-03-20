@@ -239,6 +239,9 @@
                                         <state key="normal" title="Find Location">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="findLocation:" destination="1wW-Aa-HpV" eventType="touchUpInside" id="SgU-Ht-p1w"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -261,7 +264,7 @@
                         <outlet property="linkTextField" destination="iWn-gq-dSu" id="05P-yQ-deS"/>
                         <outlet property="locationButton" destination="e4R-vP-rf1" id="ZR0-lS-2Nt"/>
                         <outlet property="locationTextField" destination="eed-4y-tYC" id="2jo-S9-05D"/>
-                        <segue destination="51b-Fi-8C8" kind="show" id="Wxd-cb-SQV"/>
+                        <segue destination="51b-Fi-8C8" kind="show" identifier="addLocationSegue" id="Wxd-cb-SQV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fUG-sX-TxD" userLabel="First Responder" sceneMemberID="firstResponder"/>
