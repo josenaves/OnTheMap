@@ -11,6 +11,10 @@ import MapKit
 
 class AddLocationViewController : UIViewController {
     
+    var loggedUser: User!
+    var parseClient: ParseApiProtocol!
+    var studentInformation: StudentInformation?
+    
     @IBOutlet weak var locationTextField: UITextField!
     
     @IBOutlet weak var linkTextField: UITextField!
@@ -19,27 +23,51 @@ class AddLocationViewController : UIViewController {
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    var searchedPlacemark: MKPlacemark?
-    
     private let SEGUE = "addLocationSegue"
     
-    @IBAction func findLocation(_ sender: UIButton!) {
-        print("Find location")
+    var userLocation: MKUserLocation?
+    var searchedPlacemark: MKPlacemark?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
-        guard let location = locationTextField.text, !location.isEmpty,
-              let linkText = linkTextField.text,     !linkText.isEmpty else {
-                    
+        precondition(loggedUser != nil)
+        precondition(parseClient != nil)
+        
+        if let userInformation = studentInformation {
+            locationTextField.text = userInformation.mapTextReference
+            linkTextField.text = userInformation.mediaUrl.absoluteString
+        }
+//        locationTextField.delegate = self
+//        linkTextField.delegate = self
+    }
+
+    
+    @IBAction func findLocation(_ sender: UIButton?) {
+        
+        guard let locationText = locationTextField.text, !locationText.isEmpty,
+              let linkText = linkTextField.text, !linkText.isEmpty else {
             print("Fill ALL FIELDS !")
             return
         }
         
-        sender.isEnabled = false
+        sender?.isEnabled = false
         
         let locationSearchRequest = MKLocalSearch.Request()
-        locationSearchRequest.naturalLanguageQuery = location
-        
+        locationSearchRequest.naturalLanguageQuery = locationText
+        if let userLocation = userLocation {
+            let userRegion = MKCoordinateRegion(
+                center: userLocation.coordinate,
+                span: MKCoordinateSpan(latitudeDelta: 100, longitudeDelta: 100)
+            )
+            locationSearchRequest.region = userRegion
+        }
         locationButton.isEnabled = false
         activityIndicator.startAnimating()
+        
+        // TODO remove if error
+        [locationTextField, linkTextField].forEach { $0?.resignFirstResponder() }
+        
         
         let localSearch = MKLocalSearch(request: locationSearchRequest)
         localSearch.start { response, error in
@@ -47,23 +75,36 @@ class AddLocationViewController : UIViewController {
             self.locationButton.isEnabled = true
             
             guard error == nil, let response = response, !response.mapItems.isEmpty else {
-                self.presentAlert(withTitle: "Error", message: "Location not found, try something different!")
+                self.displayError(.lackingData, withMessage: "Location not found, try something different!")
+//                self.presentAlert(withTitle: "Error", message: "Location not found, try something different!")
                 return
             }
             
-            /// The placemark searched by the user
             let firstResult = response.mapItems.first!
             
-            print("firstResult: \(firstResult)")
-            print("Coordinates: \(firstResult.placemark.coordinate)")
-            print("countryCode: \(firstResult.placemark.countryCode ?? "?")")
-            print("title: \(firstResult.placemark.title ?? "?")")
-            print("name: \(firstResult.name ?? "?")")
-            
-            self.searchedPlacemark = response.mapItems.first!.placemark
+            self.searchedPlacemark = firstResult.placemark
             self.performSegue(withIdentifier: self.SEGUE, sender: self)
         }
-        
-        activityIndicator.stopAnimating()
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        // Pass the informations to next screen
+        let location = locationTextField.text!
+        let linkText = linkTextField.text!
+        
+        if let detailsController = segue.destination as? LocationDetailsViewController {
+            detailsController.locationText = location
+            detailsController.linkText = linkText
+            detailsController.placemark = searchedPlacemark
+            detailsController.loggedUser = loggedUser
+            detailsController.parseClient = parseClient
+            detailsController.studentInformation = studentInformation
+        }
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        return searchedPlacemark != nil
+    }
+
 }

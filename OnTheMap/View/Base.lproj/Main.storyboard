@@ -167,7 +167,7 @@
                         <rightBarButtonItems>
                             <barButtonItem systemItem="add" id="mBN-q7-kWa">
                                 <connections>
-                                    <segue destination="1wW-Aa-HpV" kind="show" id="bsG-z9-LoP"/>
+                                    <segue destination="1wW-Aa-HpV" kind="show" identifier="addLocationSegue" id="bsG-z9-LoP"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem systemItem="refresh" id="ANb-vq-tYD">
@@ -274,7 +274,7 @@
         <!--Add Location-->
         <scene sceneID="IOB-lA-Nms">
             <objects>
-                <viewController title="Add Location" id="51b-Fi-8C8" customClass="LocationDetailViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Add Location" id="51b-Fi-8C8" customClass="LocationDetailsViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wJ3-Vf-wni">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -293,6 +293,9 @@
                                 <state key="normal" title="Finish">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="createOrUpdateUsersLocation:" destination="51b-Fi-8C8" eventType="touchUpInside" id="Bl9-Y1-ZhF"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -323,27 +326,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="xL6-kC-wlc">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Bzb-Qx-C0G">
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="xL6-kC-wlc" firstAttribute="leading" secondItem="cC3-XA-vAg" secondAttribute="leading" id="IOE-y5-NrY"/>
-                            <constraint firstItem="xL6-kC-wlc" firstAttribute="trailing" secondItem="cC3-XA-vAg" secondAttribute="trailing" id="bQD-8R-f4P"/>
-                            <constraint firstItem="xL6-kC-wlc" firstAttribute="bottom" secondItem="cC3-XA-vAg" secondAttribute="bottom" id="kNS-IB-O17"/>
-                            <constraint firstItem="xL6-kC-wlc" firstAttribute="top" secondItem="cC3-XA-vAg" secondAttribute="top" id="zWV-7a-JF6"/>
+                            <constraint firstItem="Bzb-Qx-C0G" firstAttribute="leading" secondItem="cC3-XA-vAg" secondAttribute="leading" id="FpQ-zn-27X"/>
+                            <constraint firstItem="Bzb-Qx-C0G" firstAttribute="bottom" secondItem="cC3-XA-vAg" secondAttribute="bottom" id="Mg8-xx-s3Y"/>
+                            <constraint firstItem="Bzb-Qx-C0G" firstAttribute="top" secondItem="cC3-XA-vAg" secondAttribute="top" id="cf3-VY-e9R"/>
+                            <constraint firstItem="Bzb-Qx-C0G" firstAttribute="trailing" secondItem="cC3-XA-vAg" secondAttribute="trailing" id="ycc-5Y-zVy"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="cC3-XA-vAg"/>
                     </view>
                     <tabBarItem key="tabBarItem" tag="1" title="" image="marker" selectedImage="marker" id="ml2-85-LHx"/>
                     <connections>
-                        <outlet property="mapView" destination="xL6-kC-wlc" id="liv-ua-wum"/>
+                        <outlet property="tabMapView" destination="Bzb-Qx-C0G" id="QRd-EO-wdl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2L5-Ct-cNx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2455" y="216"/>
+            <point key="canvasLocation" x="2453.5999999999999" y="215.44227886056973"/>
         </scene>
     </scenes>
     <resources>

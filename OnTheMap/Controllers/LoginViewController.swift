@@ -13,11 +13,28 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var textEmail: UITextField?
     @IBOutlet weak var textPassword: UITextField?
     
+    var udacityClient: UdacityApiProtocol!
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        precondition(udacityClient != nil, "The API Client must be injected!")
+
         // clear fields (logout)
         textEmail?.text = ""
         textPassword?.text = ""
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "initialSegue" {
+            if let navigationController = segue.destination as? UINavigationController,
+               let tabController = navigationController.visibleViewController as? StudentsTabBarController {
+                tabController.udacityClient = self.udacityClient
+                tabController.parseClient = ParseApiClient()
+                tabController.loggedUser = udacityClient.user
+            }
+        }
     }
 
     @IBAction func navigateToSignup(sender: UIButton) {
@@ -41,47 +58,23 @@ class LoginViewController: UIViewController {
             return
         }
 
-        var request = URLRequest(url: URL(string: "https://onthemap-api.udacity.com/v1/session")!)
         
-        request.httpMethod = "POST"
-        
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        // encoding a JSON body from a string, can also use a Codable struct
-        request.httpBody = "{\"udacity\": {\"username\": \"\(email)\", \"password\": \"\(password)\"}}".data(using: .utf8)
-        
-        let session = URLSession.shared
-        
-        let task = session.dataTask(with: request) { data, response, error in
-            
-            if error != nil {
-                DispatchQueue.main.async(execute: {
-                    self.presentAlert(withTitle: "Error", message: "There was a problema with your connection! Please check it!")
-                })
+        udacityClient.logIn(withUsername: email, password: password) { account, session, error in
+            guard error == nil else {
+                self.displayError(error!, withMessage: "The username or password provided isn't correct.")
                 return
             }
             
-            if let httpResponse = response as? HTTPURLResponse {
-                if (httpResponse.statusCode != 200) {
-                    
-                    DispatchQueue.main.async(execute: {
-                        self.presentAlert(withTitle: "Warning", message: "Wrong credentials! Please check your email or password!")
-                    })
+            self.udacityClient.getUserInfo(usingUserIdentifier: account!.key) { user, error in
+                guard error == nil else {
+                    self.displayError(error!, withMessage: "Could not get the user details! Plase, try again later.")
                     return
                 }
-            }
-
-//            let range = 5..<data!.count
-//            let newData = data?.subdata(in: range) /* subset response data! */
-            
-            DispatchQueue.main.async(execute: {
-                self.presentAlert(withTitle: "Success", message: "Successfully logged in", completion: {
+                
+                DispatchQueue.main.async {
                     self.performSegue(withIdentifier: "initialSegue", sender: self)
-                })
-            })
-        }
-        task.resume()
-        
+                }
+            }
+        }        
     }
 }

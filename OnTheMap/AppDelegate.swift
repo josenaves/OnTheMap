@@ -13,10 +13,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
-    private static var _fetchedStudents = [StudentInformation]()
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        if let loginController = window?.rootViewController as? LoginViewController {
+            loginController.udacityClient = UdacityApiClient()
+        }
         return true
     }
 
@@ -57,7 +57,7 @@ extension UIApplication {
         
         guard var addressURL = URL(string: addressText),
             var components = URLComponents(url: addressURL, resolvingAgainstBaseURL: true) else {
-                assertionFailure("Couldn't mount the url.")
+                assertionFailure("Could not mount the url.")
                 return
         }
         
