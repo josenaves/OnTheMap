@@ -8,56 +8,48 @@
 
 import UIKit
 import MapKit
+import CoreLocation
 
 class StudentsMapViewController: UIViewController {
     
-    @IBOutlet weak var mapView: MKMapView!
+    var parseClient: ParseApiProtocol!
+    var loggedUser: User!
     
     /// The reuse identifier of the annotation views used on the map.
     let annotationReuseID = "annotationReuseID"
+
+    @IBOutlet weak var tabMapView: MKMapView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mapView.delegate = self
-        mapView.setUserTrackingMode(.followWithHeading, animated: true)
-        mapView.showsUserLocation = true
+        precondition(parseClient != nil)
+        precondition(loggedUser != nil)
         
-        if fetchedStudents.count == 0 {
-            getStudents { self.displayStudentLocations() }
-        } else {
-            self.displayStudentLocations()
-        }
-    }
-    
-    @IBAction func refreshData(_ sender: Any) {
-        getStudents { self.displayStudentLocations() }
-    }
-    
-    @IBAction func logout(_ sender: Any) {
-        doLogout()
+        tabMapView.delegate = self
+        tabMapView.showsUserLocation = true
+        tabMapView.setUserTrackingMode(.followWithHeading, animated: true)
+        
+        displayStudentLocations()
     }
     
     func displayStudentLocations() {
-        mapView.removeAnnotations(mapView.annotations)
-        
-        mapView.addAnnotations(fetchedStudents.compactMap {
+        tabMapView.removeAnnotations(tabMapView.annotations)
+        tabMapView.addAnnotations(parseClient.studentLocations.compactMap {
             StudentAnnotation(
                 coordinate: CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude),
                 title: "\($0.lastName), \($0.firstName)",
-                subtitle: $0.mediaUrl,
+                subtitle: $0.mediaUrl.absoluteString,
                 studentInformation: $0
             )
         })
     }
-    
-    /// Displays the link found in the selected annotation.
+
     @objc private func displayPostedLink(_ sender: AnnotationTapRecognizer?) {
         guard let urlText = sender?.link else {
-            assertionFailure("The link of the tap recognizer must be set.")
+            assertionFailure("The link of the tap recognizer must be set!!!")
             return
         }
-        
         UIApplication.shared.openDefaultBrowser(accessingAddress: urlText)
     }
 }
@@ -78,20 +70,17 @@ extension StudentsMapViewController: MKMapViewDelegate {
                 reuseIdentifier: annotationReuseID
             )
         }
-
-        annotationView.pinTintColor = .red
+        
+        if studentAnnotation.studentInformation.key == loggedUser.key {
+            annotationView.pinTintColor = Colors.UserLocationMarkerColor
+        } else {
+            annotationView.pinTintColor = .red
+        }
         
         annotationView.canShowCallout = true
         annotationView.displayPriority = .required
         
         return annotationView
-    }
-    
-    
-    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
-        if let recognizer = view.gestureRecognizers?.filter({ $0 is AnnotationTapRecognizer }).first {
-            view.removeGestureRecognizer(recognizer)
-        }
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
@@ -111,4 +100,11 @@ extension StudentsMapViewController: MKMapViewDelegate {
         )
         view.addGestureRecognizer(tapRecognizer)
     }
+
+    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+        if let recognizer = view.gestureRecognizers?.filter({ $0 is AnnotationTapRecognizer }).first {
+            view.removeGestureRecognizer(recognizer)
+        }
+    }
+    
 }
