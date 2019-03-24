@@ -58,6 +58,10 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="4FQ-f6-870">
+                                <rect key="frame" x="169" y="398" width="37" height="37"/>
+                                <color key="color" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -70,13 +74,17 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="nxp-qs-Xeg" secondAttribute="trailing" constant="65" id="Rrg-lN-mbW"/>
                             <constraint firstItem="LiR-YS-5z1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="XAH-ov-GhH"/>
                             <constraint firstItem="iOn-SI-6N1" firstAttribute="top" secondItem="LiR-YS-5z1" secondAttribute="bottom" constant="24" id="Xti-b3-wXS"/>
+                            <constraint firstItem="4FQ-f6-870" firstAttribute="top" secondItem="nxp-qs-Xeg" secondAttribute="bottom" constant="8" id="dOi-IR-pf6"/>
                             <constraint firstItem="iOn-SI-6N1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="f0i-lD-Pr9"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="KRu-mj-t8Q" secondAttribute="trailing" constant="16" id="gQd-jd-F4H"/>
                             <constraint firstItem="KRu-mj-t8Q" firstAttribute="top" secondItem="iOn-SI-6N1" secondAttribute="bottom" constant="48" id="lbc-ee-Y6J"/>
+                            <constraint firstItem="4FQ-f6-870" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="qpd-lT-1k2"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="4FQ-f6-870" id="JZr-yf-1ia"/>
+                        <outlet property="loginButton" destination="KRu-mj-t8Q" id="pbu-hg-lfi"/>
                         <outlet property="textEmail" destination="LiR-YS-5z1" id="eNO-4G-0sV"/>
                         <outlet property="textPassword" destination="iOn-SI-6N1" id="SUU-5N-2zg"/>
                         <segue destination="n5r-tc-KWU" kind="show" identifier="initialSegue" id="VIW-0K-gLY"/>

@@ -12,6 +12,8 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var textEmail: UITextField?
     @IBOutlet weak var textPassword: UITextField?
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var loginButton: UIButton!
     
     var udacityClient: UdacityApiProtocol!
     
@@ -20,6 +22,8 @@ class LoginViewController: UIViewController {
         
         precondition(udacityClient != nil, "The API Client must be injected!")
 
+        activityIndicator.isHidden = true
+        
         // clear fields (logout)
         textEmail?.text = ""
         textPassword?.text = ""
@@ -45,28 +49,33 @@ class LoginViewController: UIViewController {
     
     @IBAction func authenticate(sender: UIButton) {
         
+        showLoadingState(isLoading: true)
+        
         let email = textEmail?.text ?? ""
         let password = textPassword?.text ?? ""
         
         if email.trimmingCharacters(in: .whitespaces).isEmpty {
+            showLoadingState(isLoading: false)
             self.presentAlert(withTitle: "Warning", message: "You must enter an email!")
             return
         }
         
         if password.trimmingCharacters(in: .whitespaces).isEmpty {
+            showLoadingState(isLoading: false)
             self.presentAlert(withTitle: "Warning", message: "You must enter a password!")
             return
         }
 
-        
         udacityClient.logIn(withUsername: email, password: password) { account, session, error in
             guard error == nil else {
+                self.showLoadingState(isLoading: false)
                 self.displayError(error!, withMessage: "The username or password provided isn't correct.")
                 return
             }
             
             self.udacityClient.getUserInfo(usingUserIdentifier: account!.key) { user, error in
                 guard error == nil else {
+                    self.showLoadingState(isLoading: false)
                     self.displayError(error!, withMessage: "Could not get the user details! Plase, try again later.")
                     return
                 }
@@ -76,5 +85,16 @@ class LoginViewController: UIViewController {
                 }
             }
         }        
+    }
+    
+    private func showLoadingState(isLoading: Bool) {
+        loginButton.isEnabled = !isLoading
+        activityIndicator.isHidden = !isLoading
+        
+        if isLoading {
+            activityIndicator.startAnimating()
+        } else {
+            activityIndicator.stopAnimating()
+        }
     }
 }
