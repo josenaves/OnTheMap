@@ -42,19 +42,7 @@ struct StudentInformation {
     
     // construct a TMDBMovie from a dictionary
     init?(dictionary: [String:AnyObject]) {
-        
-//        if let firstName = dictionary[ParseApiClient.JSONResponseKeys.FirstName] {
-//            self.firstName = firstName as! String
-//        } else {
-//            self.firstName = "Unknown firstName"
-//        }
-//
-//        if let lastName = dictionary[ParseApiClient.JSONResponseKeys.LastName] {
-//            self.lastName = lastName as! String
-//        } else {
-//            self.lastName = "Unknown lastName"
-//        }
-        
+                
         guard let firstName = dictionary[ParseApiClient.JSONResponseKeys.FirstName] as? String else {
             return nil
         }

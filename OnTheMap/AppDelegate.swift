@@ -45,7 +45,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension UIApplication {
     
-    // MARK: Imperatives
     func openDefaultBrowser(accessingAddress addressText: String) {
         var addressText = addressText
         

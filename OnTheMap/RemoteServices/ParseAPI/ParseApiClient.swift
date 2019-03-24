@@ -177,7 +177,7 @@ class ParseApiClient: ApiClient, ParseApiProtocol {
             JSONResponseKeys.MapTextReference: studentInformation.mapTextReference,
             JSONResponseKeys.Latitude: studentInformation.latitude,
             JSONResponseKeys.Longitude: studentInformation.longitude,
-            JSONResponseKeys.MediaUrl: studentInformation.mediaUrl,
+            JSONResponseKeys.MediaUrl: studentInformation.mediaUrl.absoluteString,
             JSONResponseKeys.InformationKey: studentInformation.key
         ]
         return try? JSONSerialization.data(withJSONObject: jsonDictionary, options: .prettyPrinted)

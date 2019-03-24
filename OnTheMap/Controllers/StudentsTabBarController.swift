@@ -33,10 +33,6 @@ class StudentsTabBarController: UITabBarController {
         
         locationManager = CLLocationManager()
         
-        print("viewControllers: \(String(describing: viewControllers))")
-        print("viewControllers.first: \(String(describing: viewControllers!.first))")
-        print("viewControllers.last: \(String(describing: viewControllers!.last))")
-
         guard let tableViewController = viewControllers!.first as? StudentsTableViewController,
             let mapViewController = viewControllers!.last as? StudentsMapViewController else {
             preconditionFailure("Could not get the child view controllers!")
@@ -178,7 +174,11 @@ class StudentsTabBarController: UITabBarController {
                 addLocationController.studentInformation = studentInformation
                 
                 if let mapController = viewControllers?.last as? StudentsMapViewController {
-                    addLocationController.userLocation = mapController.tabMapView.userLocation
+                    if let map = mapController.tabMapView {
+                        addLocationController.userLocation = map.userLocation
+                    } else {
+                        print("tabMapView is nil")
+                    }
                 }
             }
         }

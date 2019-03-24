@@ -38,8 +38,8 @@ class AddLocationViewController : UIViewController {
             locationTextField.text = userInformation.mapTextReference
             linkTextField.text = userInformation.mediaUrl.absoluteString
         }
-//        locationTextField.delegate = self
-//        linkTextField.delegate = self
+        locationTextField.text = ""
+        linkTextField.text = ""
     }
 
     
@@ -65,9 +65,7 @@ class AddLocationViewController : UIViewController {
         locationButton.isEnabled = false
         activityIndicator.startAnimating()
         
-        // TODO remove if error
         [locationTextField, linkTextField].forEach { $0?.resignFirstResponder() }
-        
         
         let localSearch = MKLocalSearch(request: locationSearchRequest)
         localSearch.start { response, error in
@@ -76,7 +74,6 @@ class AddLocationViewController : UIViewController {
             
             guard error == nil, let response = response, !response.mapItems.isEmpty else {
                 self.displayError(.lackingData, withMessage: "Location not found, try something different!")
-//                self.presentAlert(withTitle: "Error", message: "Location not found, try something different!")
                 return
             }
             

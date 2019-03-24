@@ -77,20 +77,17 @@ class LocationDetailsViewController: UIViewController {
         linkText: String,
         loggedUser: User) -> StudentInformation {
         
-        guard let urlString = linkText.replacingOccurrences(of: " ", with: "+")
-            .addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {
-                preconditionFailure("Could not configure the url string!!!")
-        }
-        
-        return StudentInformation(
+        let student =  StudentInformation(
             firstName: loggedUser.firstName,
             lastName: loggedUser.lastName,
             latitude: placemark.coordinate.latitude,
             longitude: placemark.coordinate.longitude,
             mapTextReference: locationText,
-            mediaUrl: URL(string: urlString)!,
+            mediaUrl: URL(string: linkText)!,
             key: loggedUser.key
         )
+        
+        return student
     }
     
     @objc private func openDefaultBrowser(_ sender: UITapGestureRecognizer?) {
@@ -114,7 +111,6 @@ class LocationDetailsViewController: UIViewController {
                 self.navigationController?.popToRootViewController(animated: true)
             }
         }
-        
         (studentInformation != nil ? parseClient.updateStudentLocation : parseClient.createStudentLocation)(studentInformationToPost, completionHandler)
     }
 }
