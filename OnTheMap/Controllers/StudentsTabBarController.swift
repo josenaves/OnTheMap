@@ -100,7 +100,6 @@ class StudentsTabBarController: UITabBarController {
                         if let information = information {
                             self.studentInformation = information
                             self.parseClient.studentLocations.append(information)
-                            self.parseClient.sortLocations()
                         }
                         
                         showFetchedLocationsOnMainThread(self.parseClient.studentLocations)
@@ -141,7 +140,6 @@ class StudentsTabBarController: UITabBarController {
             $0.key == createdInformation.key && $0.objectID == createdInformation.objectID
         }
         parseClient.studentLocations.append(createdInformation)
-        parseClient.sortLocations()
         
         displayStudentLocations(parseClient.studentLocations)
     }

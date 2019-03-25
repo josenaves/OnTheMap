@@ -36,7 +36,11 @@ class ParseApiClient: ApiClient, ParseApiProtocol {
     ) {
         
         let fetchUrl = baseURL.appendingPathComponent(Methods.StudentLocation)
-        let parameters = [ParameterKeys.Limit: String(limit), ParameterKeys.Page: String(pagesToSkip * limit)]
+        let parameters = [
+            ParameterKeys.Order: "-\(JSONResponseKeys.UpdatedAt)",
+            ParameterKeys.Limit: String(limit),
+            ParameterKeys.Page: String(pagesToSkip * limit)
+        ]
         
         _ = getConfiguredTaskForGET(withAbsolutePath: fetchUrl.absoluteString, parameters: parameters) { json, error in
             
@@ -57,7 +61,6 @@ class ParseApiClient: ApiClient, ParseApiProtocol {
             assert(!locations.isEmpty, "The mapped locations mustn't be empty.")
             
             self.studentLocations = locations
-            self.sortLocations()
             handler(locations, nil)
         }
     }
@@ -182,12 +185,6 @@ class ParseApiClient: ApiClient, ParseApiProtocol {
         ]
         return try? JSONSerialization.data(withJSONObject: jsonDictionary, options: .prettyPrinted)
     }
-    
-    func sortLocations() {
-        studentLocations = studentLocations.sorted {
-            $0.updatedAt!.compare($1.updatedAt!) == .orderedDescending
-        }
-    }
 }
 
 extension ParseApiClient {
@@ -206,6 +203,7 @@ extension ParseApiClient {
     
     /// The keys of the parameters sent in the requests.
     enum ParameterKeys {
+        static let Order = "order"
         static let Limit = "limit"
         static let Page = "skip"
         static let WhereQuery = "where"

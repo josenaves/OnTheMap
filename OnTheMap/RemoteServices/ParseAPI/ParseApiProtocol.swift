@@ -32,6 +32,4 @@ protocol ParseApiProtocol {
         _ information: StudentInformation,
         withCompletionHandler handler: @escaping (StudentInformation?, ApiClient.RequestError?) -> Void
     )
-
-    func sortLocations()
 }
