@@ -1,5 +1,5 @@
 //
-//  UIViewController+Extensions.swift
+//  UIViewController.swift
 //  OnTheMap
 //
 //  Created by José Naves Moura Neto on 16/03/19.
