@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class AddLocationViewController : UIViewController {
+class AddLocationViewController : UIViewController, UITextFieldDelegate {
     
     var loggedUser: User!
     var parseClient: ParseApiProtocol!
@@ -38,13 +38,22 @@ class AddLocationViewController : UIViewController {
             locationTextField.text = userInformation.mapTextReference
             linkTextField.text = userInformation.mediaUrl.absoluteString
         }
+        
         locationTextField.text = ""
         linkTextField.text = ""
 
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        locationTextField.delegate = self
+        linkTextField.delegate = self
     }
     
+    func textFieldShouldReturn(_ scoreText: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
+    }
+
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y == 0 {

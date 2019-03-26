@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var textEmail: UITextField?
     @IBOutlet weak var textPassword: UITextField?
@@ -27,6 +27,14 @@ class LoginViewController: UIViewController {
         // clear fields (logout)
         textEmail?.text = ""
         textPassword?.text = ""
+        
+        textEmail?.delegate = self
+        textPassword?.delegate = self
+    }
+    
+    func textFieldShouldReturn(_ scoreText: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
